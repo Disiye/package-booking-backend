@@ -16,14 +16,14 @@ public class PackageBoy {
 
     private String status;
 
-    private Date appointmentTime;
+    private String appointmentTime;
 
     private Double weight;
 
     public PackageBoy() {
     }
 
-    public PackageBoy(String id, String name, String phoneNumber, String status, Date appointmentTime, Double weight) {
+    public PackageBoy(String id, String name, String phoneNumber, String status, String appointmentTime, Double weight) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -60,11 +60,11 @@ public class PackageBoy {
         this.status = status;
     }
 
-    public Date getAppointmentTime() {
+    public String getAppointmentTime() {
         return appointmentTime;
     }
 
-    public void setAppointmentTime(Date appointmentTime) {
+    public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 
