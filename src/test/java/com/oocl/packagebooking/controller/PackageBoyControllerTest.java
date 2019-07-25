@@ -82,21 +82,21 @@ public class PackageBoyControllerTest {
         SimpleDateFormat dataformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String datestr1 = dataformat.format(new Date());
         String datestr2 = dataformat.format(new Date());
-        PackageBoy packageBoy = new PackageBoy("101","test101","13145201314","已预约", datestr1,1.00);
+        PackageBoy packageBoy = new PackageBoy("101","test101","13145201314","已取件", datestr1,1.00);
         String objectJson = new JSONObject(packageBoy).toString();
         this.mockMvc.perform(post("/package-boys").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectJson)).andExpect(status().isCreated());
 
 
         //When
-        PackageBoy newPackageBoy = new PackageBoy("101","test102","13145201315","未预约", datestr2,2.00);
+        PackageBoy newPackageBoy = new PackageBoy("101","test102","13145201315","已取件", datestr2,2.00);
         String newObjectJson = new JSONObject(newPackageBoy).toString();
         String content = this.mockMvc.perform(put("/package-boys/101").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(newObjectJson)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         JSONObject obj = new JSONObject(content);
 
         //Than
-        assertEquals("未预约", obj.get("status"));
+        assertEquals("已取件", obj.get("status"));
         assertEquals(datestr2, obj.get("appointmentTime"));
     }
 }

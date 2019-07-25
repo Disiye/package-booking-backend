@@ -20,17 +20,20 @@ public class PackageBoyService {
     }
 
     public void addPackage(PackageBoy packageBoy) {
-        SimpleDateFormat dataformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String datestr = dataformat.format(new Date());
-        packageBoy.setAppointmentTime(datestr);
-        packageBoy.setStatus("已预约");
+        packageBoy.setStatus("未预约");
+        packageBoy.setAppointmentTime(null);
         packageBoyRepository.save(packageBoy);
     }
 
     public ResponseEntity updatePackage(PackageBoy packageBoy, String id) {
         PackageBoy packageBoyDB = packageBoyRepository.findById(id).get();
-        packageBoyDB.setStatus(packageBoy.getStatus());
-        packageBoyDB.setAppointmentTime(packageBoy.getAppointmentTime());
+        if ("".equals(packageBoy.getStatus()) && "".equals(packageBoy.getName())){
+            packageBoyDB.setAppointmentTime(packageBoy.getAppointmentTime());
+            packageBoyDB.setStatus("已预约");
+        }else{
+            packageBoyDB.setStatus("已取件");
+        }
+
         packageBoyRepository.save(packageBoyDB);
         return ResponseEntity.ok().body(packageBoyDB);
     }
